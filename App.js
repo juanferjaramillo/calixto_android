@@ -2,11 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Display from "./src/pages/display/Display";
 
+
 export default function App() {
+
   return (
     <>
       <StatusBar hidden={true} />
       <Display />
+    {/* <Iniciodb /> */}
     </>
   );
 }

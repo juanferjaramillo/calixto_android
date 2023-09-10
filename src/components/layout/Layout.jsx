@@ -1,25 +1,30 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
+import { useStore } from "../../globalStore/useStore";
 
 export default function Layout(props) {
+
+  const color = useStore(state=>state.bg);
+
   return (
     <View
       //page container
       style={{
+        display:"flex",
         flexDirection: "column",
         alignItems:"center",
-        justifyContent:"center",
-        height: "100%",
-        width: "100%",
+        justifyContent:"flex-start",
+        width: "100vw",
       }}
     >
       <View
         //App bar (upper container)
         style={{
+          display: "flex",
           flexDirection: "row",
-          // justifyContent: 'flex-start',
-          // alignItems: 'center',
-          height: "8%",
-          width: "100%",
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          height: 40,
+          width: "100vw",
           // backgroundColor: "purple",
         }}
       >
@@ -27,9 +32,12 @@ export default function Layout(props) {
           //logo
           style={{ width: "20%", backgroundColor: "white", }}
         >
-          <Text style={{ color: "red" }}>LOGO</Text>
+          <Image
+          source={{uri:"https://res.cloudinary.com/sthemma/calixto/logosProveedores/sfgroup.png"}}
+          style={{width:"100%", height:"100%"}}
+          resizeMode="contain"
+          />
         </View>
-
         <View
           //slogan
           style={{
@@ -40,37 +48,24 @@ export default function Layout(props) {
             backgroundColor: "orange",
           }}
         >
-          <Text style={{ color: "white", fontSize: 25 }}>SF Group</Text>
+          <Text style={{ color: "white", fontSize: 20, height: 40 }}>SF Group</Text>
         </View>
       </View>
 
       <View
         //lower container
         style={{
-          flexDirection: "row",
-          width: "100%",
-          height: "92%",
+          display:"flex",
+          flexDirection: "column",
+          width:360,
+          height: 680,
+          backgroundColor:color,
+          // backgroundColor:"lightblue",
         }}
       >
-         {/* <Drawer /> */}
-        {/* <View
-          Drawer
-          style={{
-            width: "20%",
-            height: "100%",
-            backgroundColor: "white",
-          }}
-        ></View> */}
 
-        <View
-        //  Content
-        style={{
-            alignItems: "center",
-            width:'100%',
-            backgroundColor: "lightblue"}}
-        >
           {props.children}
-        </View>
+     
       </View>
     </View>
   );

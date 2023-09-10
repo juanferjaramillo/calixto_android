@@ -1,56 +1,69 @@
-import React, { useRef, useState } from "react";
 import {
   Button,
   DrawerLayoutAndroid,
   Text,
   StyleSheet,
   View,
-  Image
+  ScrollView,
+  Image,
 } from "react-native";
 import Layout from "../../components/layout/Layout";
 import Card from "../../components/card/Card";
+import { Divider } from "@rneui/themed";
+import { useStore } from "../../globalStore/useStore";
+import useProducts from "../../hooks/useProducts";
 
 //==================COMPONENT========================
-const Display = () => {
-  const drawer = useRef(null);
+export default function Display() {
+  const darkBg = useStore((state) => state.darkBg);
+
+  let products = useProducts(1);
+  products = products.prodUser;
 
   //------------------Drawer contents----------------------
   const navigationView = () => (
-    
     <View style={[styles.container, styles.navigationContainer]}>
-      <Image 
-      style={{width:50, height:50, backgroundColor:"pink"}}
-      source={{url:'https://res.cloudinary.com/sthemma/calixto/logosProveedores/sfgroup.png'}}
-      />
-      <Text onPress={()=>drawer.current.closeDrawer()} style={styles.paragraph}>Proveedor</Text>
+      <Text
+        // onPress={() => drawer.current.closeDrawer()}
+        style={styles.paragraph}
+      >
+        Proveedor
+      </Text>
       <Text style={styles.paragraph}>Disponibilidad</Text>
       <Text style={styles.paragraph}>Categoría</Text>
       <Text style={styles.paragraph}>Atributos</Text>
       <Text style={styles.paragraph}>Producto</Text>
+      <Divider width={30} />
+      <Text onPress={darkBg} style={styles.paragraph}>
+        Salir
+      </Text>
     </View>
   );
 
-
   //-------------------RENDER------------------------------
   return (
-    <DrawerLayoutAndroid
-      ref={drawer}
-      drawerWidth={200}
-      drawerPosition={"left"}
-      renderNavigationView={navigationView}
-    >
-      <Layout>
-        <Card />
-      </Layout>
-    </DrawerLayoutAndroid>
+    <Layout>
+      <DrawerLayoutAndroid
+        // ref={drawer}
+        drawerWidth={200}
+        drawerPosition={"left"}
+        renderNavigationView={navigationView}
+      >
+        <ScrollView width={360} Display={"flex"} alignItems={"center"}>
+          {products?.map((p) => {
+            return <Card id={p.id} productUrl={p.prodUrl} />;
+          })}
+        </ScrollView>
+      </DrawerLayoutAndroid>
+    </Layout>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 16,
   },
   navigationContainer: {
@@ -61,6 +74,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "center",
   },
+  prodImage: {
+    width: 50,
+    height: 50,
+    // backgroundColor: "pink",
+  },
 });
-
-export default Display;

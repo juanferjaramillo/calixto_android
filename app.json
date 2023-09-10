@@ -3,7 +3,7 @@
     "name": "calixto_android",
     "slug": "calixto_android",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "auto",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

@@ -1,48 +1,86 @@
-import { View, Text, Image } from "react-native";
+import { View, Alert, ScrollView } from "react-native";
+import { Badge, Image, Text } from "@rneui/themed";
+import { useState } from "react";
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
 
-export default function Card() {
+//===============COMPONENT=================
+
+export default function Card(props) {
+
+  const [front, setFront] = useState(true);
+
+  const _storeData = async () => {
+    try {
+      setFront((f) => !f);
+
+    } catch (error) {
+      console.log("error saving data", error);
+    }
+  };
+
+  const handleCardTouchEnd = () => {
+  
+    setFront((f) => !f);
+    // _storeData();
+    // AsyncStorage.setItem("key1","value1");
+    console.log("retouched", front);
+    // Alert.alert("accion!", "toque detectado");
+  };
+
+  //-------------------- render -------------------------
   return (
     <View
       //card container
       style={{
         alignItems: "center",
-        width: "90%",
-        height: "70%",
+        width: 300,
+        height: 400,
         backgroundColor: "white",
         marginTop: 5,
+        borderRadius: 10,
+        // shadowOffset:10,
+        // shadowOpacity:50,
+        // shadowColor:"#ffffff"
       }}
+      // onTouchEnd={handleCardTouchEnd}
     >
       <View
         //codigo
-        style={{ width: "100%" }}
+        style={{ width: 200 }}
       >
-        <Text style={{ textAlign: "center" }}>Código: 100001</Text>
+        <Text style={{ textAlign: "center" }}>{props.id}</Text>
       </View>
 
       <View
         //imagen
         style={{
-          width: "80%",
-          height: "50%",
-          backgroundColor: "lightgreen",
-          marginTop: "5%",
-          marginBottom: "5%",
+          width: 250,
+          height: 220,
+          marginTop: 1,
+          marginBottom: 2,
         }}
       >
-        
+        <Badge
+          status="success" //success, error, primary, warning
+          // style={{backgroundColor: "#ff0000"}}
+          containerStyle={{ position: "absolute", top: 0, left: 200 }}
+        />
         <Image
           source={{
-            url: 'https://res.cloudinary.com/sthemma/calixto/imgProductos/0600050.jpg',
+            uri: props.productUrl,
+            // uri: "https://res.cloudinary.com/sthemma/samples/0900001.jpg",
+            // uri: "https://res.cloudinary.com/sthemma/calixto/imgProductos/sthemma.jpg",
           }}
-          style={{ width: 500, height: 500 }}
+          resizeMode="contain"
+          style={{ width: "100%", height: "100%" }}
           alt="Producto"
         />
       </View>
-      
+
       <View
       //nombre
       >
-        <Text>Cocoa con almendras 200 Gr.</Text>
+        <Text>juanfer</Text>
       </View>
     </View>
   );

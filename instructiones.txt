@@ -1,0 +1,17 @@
+Install Expo Globally:
+sudo npm i -g expo-cli
+
+Iniciar el proyecto nuevo:
+expo init projectName
+    Manage workflow to use Expo (easier) - Does not create android and ios folder in the project
+
+    
+
+
+
+
+Instalar React Native Elements
+npm install @rneui/base @rneui/themed
+
+Instalar async storage:
+npm i @react-native-async-storage/async-storage
